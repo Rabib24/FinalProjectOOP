@@ -1,0 +1,18 @@
+Administrator admin = new Administrator(
+    "ADM001", "John Doe", "secure123", "Admin", true,
+    101, "Operations", "FullAccess"
+);
+admin.login();
+admin.GenerateReport();
+admin.logout();
+
+
+
+LogisticManager manager = new LogisticManager(
+    1001, "securePass", "Alice Smith", "alice@logistics.com", "+123456789",
+    "O+", "Female", "LogisticManager", "Active", 5000.0f,
+    "WH-ACCESS-123", "+987654321", "manager@warehouse.com"
+);
+
+manager.UpdateProfile();  // Inherited from User
+manager.assignVehicle();  // Specific to LogisticManager

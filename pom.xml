@@ -10,20 +10,25 @@
     <name>SSF</name>
 
     <properties>
+<!--        // Added-->
+        <javafx.version>17.0.6</javafx.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
+
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.6</version>
+            <version>${javafx.version}</version>
+
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.6</version>
+            <version>${javafx.version}</version>
+            <!--            <version>17.0.6</version>-->
         </dependency>
 
         <dependency>

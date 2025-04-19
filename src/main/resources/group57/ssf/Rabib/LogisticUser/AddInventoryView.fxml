@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="ManageInventory_MainContainer" prefHeight="454.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group57.ssf.Rabib_2221005.AddInventoryViewController">
+   <children>
+      <Label layoutX="33.0" layoutY="22.0" text="Inventory Management">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <ButtonBar layoutX="287.0" layoutY="107.0" prefHeight="32.0" prefWidth="298.0">
+         <buttons>
+          <Button mnemonicParsing="false" onAction="#ShowAddItemView" prefHeight="31.0" prefWidth="170.0" text="Add" />
+            <Button mnemonicParsing="false" onAction="#ShowEditItemView" prefHeight="30.0" text="Edit" />
+         </buttons>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </ButtonBar>
+      <AnchorPane layoutX="33.0" layoutY="166.0" prefHeight="239.0" prefWidth="735.0">
+         <children>
+            <Pane fx:id="ManageInventory_AddView" prefHeight="265.0" prefWidth="735.0" visible="false">
+               <children>
+                  <Label layoutX="29.0" layoutY="16.0" text="Add Items">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="111.0" layoutY="76.0" text="Type" />
+                  <ComboBox fx:id="ManageInventory_Add_ItemType" layoutX="183.0" layoutY="71.0" prefWidth="150.0" />
+                  <Button layoutX="281.0" layoutY="224.0" mnemonicParsing="false" onAction="#AddItemToInventory" prefHeight="25.0" prefWidth="215.0" text="Add Item To Inventory" />
+                  <Label layoutX="423.0" layoutY="127.0" text="Condition" />
+                  <Label layoutX="423.0" layoutY="72.0" text="Quantity" />
+                  <Label layoutX="111.0" layoutY="173.0" text="Model" />
+                  <Label layoutX="111.0" layoutY="126.0" text="ItemID" />
+                  <TextField fx:id="ManageInventory_Add_ItemID" layoutX="183.0" layoutY="121.0" />
+                  <Label layoutX="424.0" layoutY="174.0" text="Price" />
+                  <TextField fx:id="ManageInventory_Add_Model" layoutX="183.0" layoutY="167.0" />
+                  <ComboBox fx:id="ManageInventory_Add_Condition" layoutX="494.0" layoutY="121.0" prefWidth="150.0" />
+                  <TextField fx:id="ManageInventory_Add_Quantity" layoutX="496.0" layoutY="68.0" />
+                  <TextField fx:id="ManageInventory_Add_Price" layoutX="495.0" layoutY="170.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="ManageInventory_EditView" prefHeight="265.0" prefWidth="735.0" visible="false">
+               <children>
+                  <Label layoutX="31.0" layoutY="17.0" text="Edit Inventory Item">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="80.0" layoutY="75.0" text="Select Item Type" />
+                  <ComboBox fx:id="ManageInventory_Edit_ItemType" layoutX="183.0" layoutY="71.0" prefWidth="150.0" />
+                  <Label layoutX="375.0" layoutY="74.0" text="ItemID" />
+                  <TextField fx:id="ManageInventory_Edit_ItemID" layoutX="447.0" layoutY="69.0" />
+                  <Label layoutX="111.0" layoutY="171.0" text="Quantity" />
+                  <TextField fx:id="ManageInventory_Edit_Quantity" layoutX="184.0" layoutY="167.0" />
+                  <Label layoutX="111.0" layoutY="128.0" text="Model" />
+                  <TextField fx:id="ManageInventory_Edit_Model" layoutX="183.0" layoutY="122.0" />
+                  <Button layoutX="281.0" layoutY="224.0" mnemonicParsing="false" onAction="#ManageInventory_Edit_ExistingItem" prefHeight="25.0" prefWidth="215.0" text="Edit Existing Inventory Item" />
+                  <Label layoutX="374.0" layoutY="126.0" text="Condition" />
+                  <Label layoutX="378.0" layoutY="172.0" text="Price" />
+                  <ComboBox fx:id="ManageInventory_Edit_Condition" layoutX="451.0" layoutY="122.0" prefWidth="150.0" />
+                  <TextField fx:id="ManageInventory_Edit_Price" layoutX="453.0" layoutY="169.0" />
+                  <Button layoutX="622.0" layoutY="69.0" mnemonicParsing="false" onAction="#ManageInventory_Edit_FindItem" text="Find Item" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <Line endX="685.0" layoutX="115.0" layoutY="72.0" startX="-115.0" />
+      <Label layoutX="68.0" layoutY="108.0" text="Manage Item To">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

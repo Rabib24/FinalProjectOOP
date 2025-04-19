@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group57.ssf.Rabib_2221005.GenerateReportPaneController">
+   <children>
+      <AnchorPane fx:id="GenerateReport_View2" layoutX="-1.0" prefHeight="410.0" prefWidth="612.0" visible="false">
+         <children>
+            <Label layoutX="339.0" layoutY="42.0" text="UserID " />
+            <Label layoutX="13.0" layoutY="29.0" text="Generated Report">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="501.0" layoutX="99.0" layoutY="77.0" startX="-100.0" />
+            <Pane layoutX="2.0" layoutY="77.0" prefHeight="322.0" prefWidth="597.0">
+               <children>
+                  <Label layoutX="69.0" layoutY="41.0" text="Name" />
+                  <Label layoutX="70.0" layoutY="58.0" text="Email" />
+                  <Label layoutX="336.0" layoutY="79.0" prefWidth="42.0" text="Role" />
+                  <Label layoutX="32.0" layoutY="8.0" prefHeight="21.0" prefWidth="91.0" text="Profile Info">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="71.0" layoutY="243.0" prefHeight="17.0" prefWidth="84.0" text="Location" />
+                  <Label layoutX="71.0" layoutY="207.0" prefHeight="17.0" prefWidth="84.0" text="Mission Status" />
+                  <Label layoutX="71.0" layoutY="225.0" prefHeight="17.0" prefWidth="78.0" text="MissionID" />
+                  <Label layoutX="70.0" layoutY="190.0" prefHeight="17.0" prefWidth="84.0" text="Commander" />
+                  <Label layoutX="70.0" layoutY="173.0" prefHeight="17.0" prefWidth="84.0" text="Team Name" />
+                  <Label layoutX="29.0" layoutY="140.0" prefHeight="21.0" prefWidth="91.0" text="Team Info">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="336.0" layoutY="43.0" text="Contract" />
+                  <Label layoutX="336.0" layoutY="61.0" text="Blood Type" />
+                  <Label layoutX="69.0" layoutY="76.0" prefWidth="42.0" text="Gender" />
+                  <Label layoutX="69.0" layoutY="95.0" prefWidth="42.0" text="Status" />
+                  <Label layoutX="336.0" layoutY="95.0" prefWidth="42.0" text="Salary" />
+                  <Label fx:id="GeneratedReportResult_TeamName" layoutX="177.0" layoutY="173.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_TeamCommander" layoutX="177.0" layoutY="190.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_MissionStatus" layoutX="177.0" layoutY="209.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_MissionID" layoutX="177.0" layoutY="226.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_Location" layoutX="177.0" layoutY="244.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_FullName" layoutX="179.0" layoutY="42.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_Email" layoutX="179.0" layoutY="59.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_Gender" layoutX="179.0" layoutY="77.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_Status" layoutX="179.0" layoutY="96.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_Contact" layoutX="438.0" layoutY="43.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_BloodType" layoutX="438.0" layoutY="61.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_Role" layoutX="438.0" layoutY="78.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label fx:id="GeneratedReportResult_Salary" layoutX="438.0" layoutY="96.0" prefHeight="17.0" prefWidth="139.0" text="Name" />
+                  <Label layoutX="335.0" layoutY="248.0" prefHeight="17.0" prefWidth="84.0" text="Weapon" />
+                  <Label layoutX="335.0" layoutY="211.0" prefHeight="17.0" prefWidth="84.0" text="Ammos" />
+                  <Label layoutX="335.0" layoutY="174.0" prefHeight="17.0" prefWidth="84.0" text="Vehicle" />
+                  <Label fx:id="GeneratedReportResult_AssignedVehicle" layoutX="438.0" layoutY="165.0" prefHeight="34.0" prefWidth="139.0" text="Name" wrapText="true" />
+                  <Label fx:id="GeneratedReportResult_AssignedAmmo" layoutX="438.0" layoutY="201.0" prefHeight="34.0" prefWidth="139.0" text="Name" wrapText="true" />
+                  <Label fx:id="GeneratedReportResult_AssignedWeapon" layoutX="438.0" layoutY="240.0" prefHeight="34.0" prefWidth="139.0" text="Name" wrapText="true" />
+                  <Label layoutX="254.0" layoutY="140.0" prefHeight="21.0" prefWidth="170.0" text="Equipment Assigned">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="246.0" layoutY="295.0" mnemonicParsing="false" onAction="#ExportGeneratedReportResultAsPDF" prefHeight="19.0" prefWidth="104.0" text="Export As PDF" />
+                  <Label layoutX="71.0" layoutY="260.0" prefHeight="17.0" prefWidth="84.0" text="Duration" />
+                  <Label fx:id="GeneratedReportResult_MissionDuration" layoutX="176.0" layoutY="261.0" prefHeight="17.0" prefWidth="139.0" text="Start - End" />
+               </children>
+            </Pane>
+            <Label fx:id="GeneratedReportResult_UserID" layoutX="397.0" layoutY="42.0" prefHeight="17.0" prefWidth="91.0" text="----" />
+            <Button layoutX="534.0" layoutY="15.0" mnemonicParsing="false" onAction="#GoBackToMainGenerateReportView" prefHeight="45.0" prefWidth="68.0" text="&lt;--      Go Back" wrapText="true" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="GenerateReport_View1" prefHeight="410.0" prefWidth="611.0">
+         <children>
+            <TableView fx:id="GenerateReport_TableView" layoutX="14.0" layoutY="116.0" prefHeight="200.0" prefWidth="582.0">
+              <columns>
+                <TableColumn fx:id="GenerateReport_Table_Role" prefWidth="66.0" text="Role" />
+                <TableColumn fx:id="GenerateReport_Table_UserID" text="UserID" />
+                  <TableColumn fx:id="GenerateReport_Table_FullName" prefWidth="141.0" text="FullName" />
+                  <TableColumn fx:id="GenerateReport_Table_Email" prefWidth="113.0" text="Email" />
+                  <TableColumn fx:id="GenerateReport_Table_SpecificField" prefWidth="104.0" text="Specific Field" />
+                  <TableColumn fx:id="GenerateReport_Table_GenerateBTN" prefWidth="77.0" text="Generate" />
+              </columns>
+            </TableView>
+            <ComboBox fx:id="FindUser_FilterSearchedBy1" layoutX="163.0" layoutY="67.0" onAction="#GenerateReport_RoleSelection" prefHeight="25.0" prefWidth="139.0" promptText="Search By" />
+            <Label layoutX="89.0" layoutY="62.0" text="Role">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="355.0" layoutY="67.0" mnemonicParsing="false" onAction="#FindUserToGenerateReport" prefHeight="25.0" prefWidth="60.0" text="Find" />
+            <Label layoutX="25.0" layoutY="22.0" text="Generate Report">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

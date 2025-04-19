@@ -1,274 +1,109 @@
 package group57.ssf;
 
-import group57.ssf.Rabib_2221005.Administrator;
+import group57.ssf.UserClasses.AddNewUserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
-import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainController {
-    @FXML
-    private AnchorPane LoginRightContainer;
-    @FXML
-    private TextField input_FO_BatchNo;
-    @FXML
-    private TextField input_Commander_BatchNo;
-    @FXML
-    private TextField LoginUsername;
-    @FXML
-    private TextField select_Signup_Contact;
-    @FXML
-    private TextField input_Sniper_BatchNo;
-    @FXML
-    private TextField input_FO_AsignZone;
-    @FXML
-    private Pane madicSignup;
-    @FXML
-    private TextField input_madic_SpecializeField;
-    @FXML
-    private TextField input_Logistic_WarehouseCode;
-    @FXML
-    private Pane LoginArea;
-    @FXML
-    private Label AboutAccount;
-    @FXML
-    private Pane comOperatorSignup;
-    @FXML
-    private TextField input_FO_TeamId;
-    @FXML
-    private PasswordField LoginPassword;
-    @FXML
-    private TextField select_Signup_BloodType;
-    @FXML
-    private ComboBox<String> input_comOperator_EncyptionProtocol;
-    @FXML
-    private Pane demolitionSignup;
-    @FXML
-    private TextField input_logistic_WarehouseAddress;
-    @FXML
-    private Pane fieldOfficerSignup;
-    @FXML
-    private Pane SignUpArea1;
-    @FXML
-    private TextField inputAdmin_AccessCode;
-    @FXML
-    private ToggleButton UserLoginOptionBTN;
-    @FXML
-    private Label Generated_Signup_UserID;
-    @FXML
-    private DatePicker select_Signup_Dob;
-    @FXML
-    private Pane commanderSignup;
-    @FXML
-    private ComboBox<String> select_Signup_Gender;
-    @FXML
-    private TextField Input_comOperator_AccessCode;
-    @FXML
-    private TextField UserFulname;
-    @FXML
-    private TextField select_Signup_FullName;
-    @FXML
-    private Pane AdminSignup;
-    @FXML
-    private ComboBox<String> Input_Sniper_PrefferedWeapon;
-    @FXML
-    private TextField input_Madic_LisenceNo;
-    @FXML
-    private TextField inputCommanderSpecialize;
+    // Login View Components
+    @FXML private AnchorPane LoginRightContainer;
+    @FXML private Label AboutAccount;
+    @FXML private ToggleButton UserLoginOptionBTN;
+
+    // Data Collections
+    protected ArrayList<String> adminAccessCode = new ArrayList<>();
+    protected ArrayList<Integer> warehouseAccessCode = new ArrayList<>();
+    protected ArrayList<String> CommunicatorOperatorAccessCode = new ArrayList<>();
+    private ArrayList<String> teamList = new ArrayList<>();
+    private ArrayList<String> missionList = new ArrayList<>();
+    private ArrayList<String> inventoryList = new ArrayList<>();
+    private ArrayList<String> weaponsList = new ArrayList<>();
+    private ArrayList<String> ammoList = new ArrayList<>();
+    private ArrayList<String> fuelList = new ArrayList<>();
+    private ArrayList<String> vehicleList = new ArrayList<>();
+    private ArrayList<String> mediKitList = new ArrayList<>();
+
+    // Controllers
+    private LogInViewController loginViewController;
+    private AddNewUserController signUpViewController;
     @FXML
     private AnchorPane LoginLeftContainer;
     @FXML
-    private Pane logisticManagerSignup;
+    private SplitPane LoginSplitPane;
+
     @FXML
-    private TextField select_Signup_Email;
-    @FXML
-    private ComboBox<String> input_Commander_SecurityLevel;
-    @FXML
-    private Label LoginReportText;
-    @FXML
-    private Pane sniperSignup;
-    @FXML
-    private ComboBox<String> select_Signup_UserRole;
-
-    protected ArrayList<String> adminAccessCode;  // 111 222 333 444 555
-    protected ArrayList<Integer> warehouseAccessCode;
-    protected ArrayList<String> CommunicatorOperatorAccessCode;
-
-
-
-    private ArrayList<String> teamList;
-    private ArrayList<String> missionList;
-    private ArrayList<String> inventoryList;
-    private ArrayList<String> weaponsList;
-    private ArrayList<String> ammoList;
-    private ArrayList<String> fuelList;
-    private ArrayList<String> vehicleList;
-    private ArrayList<String> mediKitList;
-    @FXML
-    private PasswordField select_Signup_Password;
-    @FXML
-    private Label SelectRoleAlertMSG;
-
-
-    public void initialize(){
-//        AdminAccessCode.addAll();
-        input_Commander_SecurityLevel.getItems().addAll("5 TOP_SECRET_SCI(TS/SCI)", "4 TOP_SECRET(TS)", "3 SECRET(S)", "2 CONFIDENTIAL(C)", "1 RESTRICTED(R)");
-//        TeamList;
-        select_Signup_UserRole.getItems().addAll("Administrator","Commander", "Sniper", "Field Officer", "Communication Officer", "Demolition", "Logistic Manager", "medic" );
-        select_Signup_Gender.getItems().addAll("Male","Female", "Other");
-
-
-        // Add listener to handle selection changes
-        select_Signup_UserRole.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> UpdateAccountCreationPane(newValue)
-        );
-
-
+    public void initialize() {
+        loadLoginView();
     }
 
-    private void UpdateAccountCreationPane(String AccountPane) throws IOError {
-        if (AccountPane != null) {
-            SelectRoleAlertMSG.setVisible(false);
+    private void loadLoginView() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/group57/ssf/LoginView.fxml"));
+            Pane loginView = loader.load();
+            loginViewController = loader.getController();
+            loginViewController.setMainController(this);
 
-            // Create list of all panes
-            ArrayList<Pane> panList = new ArrayList<>();
-            panList.add(AdminSignup);
-            panList.add(commanderSignup);
-            panList.add(fieldOfficerSignup);
-            panList.add(comOperatorSignup);
-            panList.add(sniperSignup);
-            panList.add(logisticManagerSignup);
-            panList.add(madicSignup);
-            panList.add(demolitionSignup);
+            LoginRightContainer.getChildren().setAll(loginView);
+            setLoginViewState(true);
 
-            // First set all panes to invisible
-            for (Pane pane : panList) {
-                pane.setVisible(false);
-            }
-
-            // Then show the selected pane
-            switch (AccountPane) {
-                case "Administrator":
-                    AdminSignup.setVisible(true);
-                    break;
-                case "Commander":
-                    commanderSignup.setVisible(true);
-                    break;
-                case "Field Officer":
-                    fieldOfficerSignup.setVisible(true);
-                    break;
-                case "Logistic Manager":
-                    logisticManagerSignup.setVisible(true);
-                    break;
-                case "Communication Officer":
-                    comOperatorSignup.setVisible(true);
-                    break;
-                case "Demolition":
-                    demolitionSignup.setVisible(true);
-                    break;
-                case "medic":
-                    madicSignup.setVisible(true);
-                    break;
-                case "Sniper":
-                    sniperSignup.setVisible(true);
-                    break;
-
-            }
-        } else {
-            SelectRoleAlertMSG.setText("No protocol selected");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    public void CreateMadicAccount(ActionEvent actionEvent) {
+    private void loadSignUpView() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/group57/ssf/Rabib/AdminUser/AddNewUserPane.fxml"));
+            Pane signUpView = loader.load();
+            signUpViewController = loader.getController();
+            signUpViewController.setMainController(this);
+
+            LoginRightContainer.getChildren().setAll(signUpView);
+            setLoginViewState(false);
+
+        } catch (IOException e) {
+            System.out.println("Failed to load signup view: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    @FXML
-    public void LogInCheckBTN(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void CreateCommanderAccount(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void createDemolitionerAccount(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void createLogisticManagerAccount(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void CreateSniperAccount(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void CreateCommunicatorAccount(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void CreateFieldOfficerAccount(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void CreateAdministratorAccount(ActionEvent actionEvent) {
+    private void setLoginViewState(boolean isLoginVisible) {
+        if(isLoginVisible) {
+            UserLoginOptionBTN.setText("Sign Up");
+            AboutAccount.setText("Create new account?");
+        } else {
+            UserLoginOptionBTN.setText("Log In");
+            AboutAccount.setText("Already have an account?");
+        }
     }
 
     @FXML
     void UserLoginChoiceBTN(ActionEvent event) {
-        if (LoginArea.isVisible()){;
-            SignUpArea1.setVisible(true);
-            UserLoginOptionBTN.setText("Log In");
-            LoginArea.setVisible(false);
-            AboutAccount.setText("Already have an account?");
-
-        }else {
-            LoginArea.setVisible(true);
-            UserLoginOptionBTN.setText("Sign up");
-            SignUpArea1.setVisible(false);
-//            SignUpfarmer.setVisible(false);
-            AboutAccount.setText("Create new account?");
+        if(UserLoginOptionBTN.getText().equals("Sign Up")) {
+            loadSignUpView();
+        } else {
+            loadLoginView();
         }
     }
 
-//    @FXML
-    public int generateUserID(String SelectedRole) {
-//        String userID = "";
-//        switch (SelectedRole) {
-//            case "Administrator":
-//                userID = "1" + "000"+ "";
-//                break;
-//            case "Commander":
-//                userID = "2" + "0"+ "";
-//                break;
-//            case "Field Officer":
-//                userID = "3" + "0"+ "";
-//                break;
-//            case "Logistic Manager":
-//                userID = "4" + "000"+ "";
-//                break;
-//            case "Sniper":
-//                userID = "5" + "0"+ "";
-//                break;
-//            case "Communication Officer":
-//                userID = "6" + "0"+ "";
-//                break;
-//            case "Demolition":
-//                userID = "7" + "0"+ "";
-//                break;
-//            case "medic":
-//                userID = "8" + "0"+ "";
-//                break;
-//
-//        };
-//
-//        return Integer.parseInt(userID);
-        return 0;
+    @Deprecated
+    void LogInCheckBTN(ActionEvent actionEvent) {
+        // Delegate to login view controller
+        loginViewController.handleLogin();
     }
+
+
+
+    // Getters for data access
+    public ArrayList<String> getAdminAccessCode() { return adminAccessCode; }
+    public ArrayList<Integer> getWarehouseAccessCode() { return warehouseAccessCode; }
+    public ArrayList<String> getCommunicatorOperatorAccessCode() { return CommunicatorOperatorAccessCode; }
 }
