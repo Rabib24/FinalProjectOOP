@@ -1,6 +1,7 @@
 module group57.ssf {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens group57.ssf to javafx.fxml;

@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group57.ssf.Rabib_2221005.GenerateReportPaneController">
    <children>
-      <AnchorPane fx:id="GenerateReport_View2" layoutX="-1.0" prefHeight="410.0" prefWidth="612.0" visible="false">
+      <AnchorPane fx:id="GenerateReport_View2" layoutX="-1.0" prefHeight="410.0" prefWidth="612.0">
          <children>
             <Label layoutX="339.0" layoutY="42.0" text="UserID " />
             <Label layoutX="13.0" layoutY="29.0" text="Generated Report">
@@ -79,7 +79,7 @@
             <Button layoutX="534.0" layoutY="15.0" mnemonicParsing="false" onAction="#GoBackToMainGenerateReportView" prefHeight="45.0" prefWidth="68.0" text="&lt;--      Go Back" wrapText="true" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="GenerateReport_View1" prefHeight="410.0" prefWidth="611.0">
+      <AnchorPane fx:id="GenerateReport_View1" prefHeight="410.0" prefWidth="611.0" visible="false">
          <children>
             <TableView fx:id="GenerateReport_TableView" layoutX="14.0" layoutY="116.0" prefHeight="200.0" prefWidth="582.0">
               <columns>
@@ -91,7 +91,7 @@
                   <TableColumn fx:id="GenerateReport_Table_GenerateBTN" prefWidth="77.0" text="Generate" />
               </columns>
             </TableView>
-            <ComboBox fx:id="FindUser_FilterSearchedBy1" layoutX="163.0" layoutY="67.0" onAction="#GenerateReport_RoleSelection" prefHeight="25.0" prefWidth="139.0" promptText="Search By" />
+            <ComboBox fx:id="FindUser_FilterSearchedBy" layoutX="163.0" layoutY="67.0" onAction="#GenerateReport_RoleSelection" prefHeight="25.0" prefWidth="139.0" promptText="Search By" />
             <Label layoutX="89.0" layoutY="62.0" text="Role">
                <font>
                   <Font name="System Bold Italic" size="20.0" />

@@ -1,11 +1,13 @@
 package group57.ssf.InventoryCollection;
 
-public class InventoryItems {
+import java.io.Serializable;
+
+public class InventoryItems extends Inventory implements Serializable {
     private String category, model, status, serialNumber;
     private double price;
     private int quantity;
 
-    public InventoryItems() {
+    public InventoryItems()  {
     }
 
     public InventoryItems(String category, String model, String status, String serialNumber, double price, int quantity) {
@@ -16,6 +18,8 @@ public class InventoryItems {
         this.price = price;
         this.quantity = quantity;
     }
+
+    public void AddToInventoryList(){}
 
     public String getCategory() {
         return category;

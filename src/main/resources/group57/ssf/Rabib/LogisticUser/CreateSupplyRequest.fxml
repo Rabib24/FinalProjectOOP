@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="group57.ssf.Rabib.LogisticUser.CreateSupplyRequestController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group57.ssf.Rabib_2221005.CreateSupplyRequestController">
+   <children>
+      <Label layoutX="25.0" layoutY="4.0" text="Resupply Request">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TableView layoutX="26.0" layoutY="35.0" prefHeight="104.0" prefWidth="545.0">
+        <columns>
+          <TableColumn prefWidth="69.66667175292969" text="RequestID" />
+          <TableColumn prefWidth="80.33332824707031" text="MissionID" />
+            <TableColumn prefWidth="75.0" text="Mission" />
+            <TableColumn prefWidth="99.66668701171875" text="Location" />
+            <TableColumn prefWidth="147.33331298828125" text="Need" />
+            <TableColumn prefWidth="72.33331298828125" text="Generate" />
+        </columns>
+      </TableView>
+      <AnchorPane layoutX="26.0" layoutY="147.0" prefHeight="242.0" prefWidth="546.0">
+         <children>
+            <Label layoutX="9.0" layoutY="5.0" text="Resupply Information" />
+            <Label layoutX="59.0" layoutY="29.0" text="Team Name" />
+            <Label layoutX="59.0" layoutY="49.0" text="Current Location" />
+            <Label layoutX="59.0" layoutY="67.0" text="Time Deadline" />
+            <Label layoutX="59.0" layoutY="87.0" text="Team Name" />
+            <Label layoutX="301.0" layoutY="29.0" text="Mission ID" />
+            <Label layoutX="301.0" layoutY="49.0" text="Mission Tittle" />
+            <Label layoutX="301.0" layoutY="68.0" text="Members No" />
+            <Label layoutX="301.0" layoutY="87.0" text="Mission ID" />
+            <TableView layoutX="5.0" layoutY="125.0" prefHeight="117.0" prefWidth="201.0">
+              <columns>
+                <TableColumn prefWidth="59.666664123535156" text="ItemID" />
+                <TableColumn prefWidth="68.0" text="Model" />
+                  <TableColumn prefWidth="72.0" text="Quantity" />
+              </columns>
+            </TableView>
+            <Label layoutX="5.0" layoutY="102.0" text="Added Item" />
+            <Label layoutX="232.0" layoutY="123.0" text="Assign Vehicle For Delivery" />
+            <ComboBox layoutX="387.0" layoutY="119.0" prefWidth="150.0" promptText="Select Vehicle" />
+            <Label layoutX="232.0" layoutY="154.0" text="Assign Vehicle To User" />
+            <ComboBox layoutX="387.0" layoutY="150.0" prefWidth="150.0" promptText="Select User" />
+            <Button layoutX="239.0" layoutY="185.0" mnemonicParsing="false" text="Confirm Resupply" />
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

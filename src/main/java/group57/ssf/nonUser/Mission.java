@@ -2,9 +2,11 @@ package group57.ssf.nonUser;
 
 
 import group57.ssf.nonUser.Notification;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Mission {
+public class Mission implements Serializable {
     private String missionID; // Unique identifier
     private String title;
     private String location;

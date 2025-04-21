@@ -1,5 +1,7 @@
 package group57.ssf.Rabib_2221005;
 
+import group57.ssf.MainController;
+import group57.ssf.UserClasses.User;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -45,7 +47,10 @@ public class FindUserDetailsController
     private Label FindUserReport_Email;
     @javafx.fxml.FXML
     private Label FindUserReport_TeamCommander;
-
+    private MainController mainController;
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
     @javafx.fxml.FXML
     public void initialize() {
     }

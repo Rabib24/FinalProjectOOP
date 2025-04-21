@@ -2,7 +2,9 @@ package group57.ssf.Rabib_2221005;
 
 import group57.ssf.UserClasses.User;
 
-public class Administrator extends User {
+import java.io.Serializable;
+
+public class Administrator extends User implements Serializable {
     private int officeId;
     private String department;
     private String adminAccessLevel;

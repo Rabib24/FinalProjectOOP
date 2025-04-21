@@ -2,11 +2,14 @@ package group57.ssf.UserClasses;
 
 import group57.ssf.InventoryCollection.Weapons;
 import group57.ssf.MainController;
+import group57.ssf.Rabib_2221005.Administrator;
+import group57.ssf.Rabib_2221005.LogisticManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import java.time.LocalDate;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -63,15 +66,30 @@ public class AddNewUserController {
     @FXML private TextField input_madic_SpecializeField;
     @FXML private TextField input_Madic_LisenceNo;
 
+
     private MainController mainController;
     private Random random = new Random();
+    @FXML
+    private TextField UserFulname;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
+        mainController.setUsers(loadAllUsers());
     }
+
+    private final String USER_DATA_FILE = "StoredInBin/Users.bin";
+
+    private ArrayList<User> UserList = new MainController().getUsers();
 
     @FXML
     public void initialize() {
+        initializeComboBoxes();
+        select_Signup_UserRole.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> updateAccountCreationPane(newValue)
+        );
+    }
+
+    private void initializeComboBoxes() {
         // Initialize combo boxes
         input_Commander_SecurityLevel.getItems().addAll(
                 "5 TOP_SECRET_SCI(TS/SCI)",
@@ -88,40 +106,13 @@ public class AddNewUserController {
 
         select_Signup_Gender.getItems().addAll("Male", "Female", "Other");
         input_comOperator_EncyptionProtocol.getItems().addAll("AES-256", "RSA-2048", "Blowfish");
-
-        // Add role selection listener
-        select_Signup_UserRole.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> updateAccountCreationPane(newValue)
-        );
     }
 
     private void updateAccountCreationPane(String accountType) {
         if (accountType != null) {
             SelectRoleAlertMSG.setVisible(false);
-
-            // Hide all panes first
-            AdminSignup.setVisible(false);
-            commanderSignup.setVisible(false);
-            fieldOfficerSignup.setVisible(false);
-            comOperatorSignup.setVisible(false);
-            sniperSignup.setVisible(false);
-            logisticManagerSignup.setVisible(false);
-            madicSignup.setVisible(false);
-            demolitionSignup.setVisible(false);
-
-            // Show selected pane
-            switch (accountType) {
-                case "Administrator": AdminSignup.setVisible(true); break;
-                case "Commander": commanderSignup.setVisible(true); break;
-                case "Field Officer": fieldOfficerSignup.setVisible(true); break;
-                case "Logistic Manager": logisticManagerSignup.setVisible(true); break;
-                case "Communication Officer": comOperatorSignup.setVisible(true); break;
-                case "Demolition": demolitionSignup.setVisible(true); break;
-                case "medic": madicSignup.setVisible(true); break;
-                case "Sniper": sniperSignup.setVisible(true); break;
-            }
-
-            // Generate user ID when role is selected
+            hideAllRolePanes();
+            showSelectedPane(accountType);
             Generated_Signup_UserID.setText(String.valueOf(generateUserID(accountType)));
         } else {
             SelectRoleAlertMSG.setText("Please select a role");
@@ -129,147 +120,184 @@ public class AddNewUserController {
         }
     }
 
-    public int generateUserID(String selectedRole) {
-        int prefix = switch (selectedRole) {
-            case "Administrator" -> 1;
-            case "Commander" -> 2;
-            case "Field Officer" -> 3;
-            case "Logistic Manager" -> 4;
-            case "Sniper" -> 5;
-            case "Communication Officer" -> 6;
-            case "Demolition" -> 7;
+    private void hideAllRolePanes() {
+        AdminSignup.setVisible(false);
+        commanderSignup.setVisible(false);
+        fieldOfficerSignup.setVisible(false);
+        comOperatorSignup.setVisible(false);
+        sniperSignup.setVisible(false);
+        logisticManagerSignup.setVisible(false);
+        madicSignup.setVisible(false);
+        demolitionSignup.setVisible(false);
+    }
+
+    private void showSelectedPane(String accountType) {
+        switch (accountType) {
+            case "Administrator": AdminSignup.setVisible(true); break;
+            case "Commander": commanderSignup.setVisible(true); break;
+            case "Field Officer": fieldOfficerSignup.setVisible(true); break;
+            case "Logistic Manager": logisticManagerSignup.setVisible(true); break;
+            case "Communication Officer": comOperatorSignup.setVisible(true); break;
+            case "Demolition": demolitionSignup.setVisible(true); break;
+            case "medic": madicSignup.setVisible(true); break;
+            case "Sniper": sniperSignup.setVisible(true); break;
+        }
+    }
+
+    private int generateUserID(String selectedRole) {
+        int prefix = switch (selectedRole.toLowerCase()) {
+            case "administrator" -> 1;
+            case "commander" -> 2;
+            case "field officer" -> 3;
+            case "logistic manager" -> 4;
+            case "sniper" -> 5;
+            case "communication officer" -> 6;
+            case "demolitioner" -> 7;
             case "medic" -> 8;
             default -> 0;
         };
-        return prefix * 10000 + random.nextInt(9000);
+
+        int userCount = mainController.getUsers().stream()
+                .filter(u -> u.getRole().equalsIgnoreCase(selectedRole))
+                .toList()
+                .size();
+
+        return prefix * 10000 + (userCount + 1);
     }
 
-    // Common validation method
     private boolean validateCommonFields() {
+        // Check for empty fields
         if (select_Signup_FullName.getText().isEmpty() ||
                 select_Signup_Email.getText().isEmpty() ||
                 select_Signup_Password.getText().isEmpty() ||
                 select_Signup_Gender.getValue() == null ||
                 select_Signup_Dob.getValue() == null) {
-
             showAlert("Error", "Please fill all required fields");
             return false;
         }
 
+        // Check password length
         if (select_Signup_Password.getText().length() < 8) {
             showAlert("Error", "Password must be at least 8 characters");
             return false;
         }
 
+        // Check User ID length
+        String userId = Generated_Signup_UserID.getText();
+        if (userId.length() != 5) {
+            showAlert("Error", "User  ID must be exactly 5 characters long");
+            return false;
+        }
+
+        // Check if access codes are valid (example for Administrator)
+        if (select_Signup_UserRole.getValue().equals("Administrator")) {
+            String accessCode = inputAdmin_AccessCode.getText();
+            if (!mainController.getAdminAccessCode().contains(accessCode)) {
+                showAlert("Error", "Invalid administrator access code");
+                return false;
+            }
+        }
+
+        // Check if access codes are valid (example for Logistic Manager)
+        if (select_Signup_UserRole.getValue().equals("Logistic Manager")) {
+            String warehouseCode = input_Logistic_WarehouseCode.getText();
+            if (!mainController.getWarehouseAccessCode().contains(warehouseCode)) {
+                showAlert("Error", "Invalid warehouse access code");
+                return false;
+            }
+        }
+
         return true;
     }
-
-    // Account creation methods
-    @FXML
-    public void CreateAdministratorAccount(ActionEvent actionEvent) {
+    public void createAccount() {
         if (!validateCommonFields()) return;
 
-        if (inputAdmin_AccessCode.getText().isEmpty() ||
-                !mainController.getAdminAccessCode().contains(inputAdmin_AccessCode.getText())) {
-            showAlert("Error", "Invalid admin access code");
-            return;
+        String role = select_Signup_UserRole.getValue();
+        User newUser  = createUser (role);
+        if (newUser  != null && saveUser (newUser )) {
+            showAlert("Success", role + " account created successfully!\nUser  ID: " + Generated_Signup_UserID.getText());
+            clearForm();
+        } else {
+            showAlert("Error", "Failed to save account data");
         }
-
-        // Create admin account logic
-        showAlert("Success", "Administrator account created successfully");
     }
 
-    @FXML
-    public void CreateCommanderAccount(ActionEvent actionEvent) {
-        if (!validateCommonFields()) return;
-
-        if (input_Commander_BatchNo.getText().isEmpty() ||
-                input_Commander_SecurityLevel.getValue() == null) {
-            showAlert("Error", "Please fill all commander specific fields");
-            return;
-        }
-
-        // Create commander account logic
-        showAlert("Success", "Commander account created successfully");
+    private int getDefaultSalary(String role) {
+        return switch (role.toLowerCase()) {
+            case "administrator" -> 5000;
+            case "logistic manager" -> 4000;
+            case "commander" -> 3500;
+            case "field officer" -> 3000;
+            case "communication officer" -> 2800;
+            case "sniper" -> 3200;
+            case "demolition" -> 3000;
+            case "medic" -> 2900;
+            default -> 0; // Default salary if role is not recognized
+        };
     }
 
-    @FXML
-    public void CreateFieldOfficerAccount(ActionEvent actionEvent) {
-        if (!validateCommonFields()) return;
+    private User createUser (String role) {
+        User baseUser  = new User(
+                Integer.parseInt(Generated_Signup_UserID.getText()),
+                select_Signup_Password.getText(),
+                select_Signup_FullName.getText(),
+                select_Signup_Email.getText(),
+                select_Signup_Contact.getText(),
+                select_Signup_BloodType.getText(),
+                select_Signup_Gender.getValue(),
+                role,
+                "Active",
+                getDefaultSalary(role) // Set default salary based on role
+        );
 
-        if (input_FO_BatchNo.getText().isEmpty() ||
-                input_FO_TeamId.getText().isEmpty() ||
-                input_FO_AsignZone.getText().isEmpty()) {
-            showAlert("Error", "Please fill all field officer specific fields");
-            return;
+        switch (role) {
+            case "Administrator":
+                Administrator admin = new Administrator(baseUser .getId(), baseUser .getPassword(), baseUser .getFullName(),
+                        baseUser .getEmail(), baseUser .getContact(), baseUser .getBloodType(),
+                        baseUser .getGender(), baseUser .getRole(), baseUser .getStatus(), baseUser .getSalary(),
+                        baseUser .getId(), "Main Office", "Level 1");
+                mainController.saveUserToAllFiles(baseUser , admin); // Save both base user and admin
+                return admin;
+
+            case "Logistic Manager":
+                LogisticManager logisticUser  = new LogisticManager(baseUser .getId(), baseUser .getPassword(), baseUser .getFullName(),
+                        baseUser .getEmail(), baseUser .getContact(), baseUser .getBloodType(),
+                        baseUser .getGender(), baseUser .getRole(), baseUser .getStatus(), baseUser .getSalary(),
+                        input_Logistic_WarehouseCode.getText(), baseUser .getContact(), baseUser .getEmail());
+                mainController.saveUserToAllFiles(baseUser , logisticUser ); // Save both base user and logistic manager
+                return logisticUser ;// Add cases for other roles as needed
+            default:
+                return baseUser ; // Return base user for roles not specifically handled
         }
-
-        // Create field officer account logic
-        showAlert("Success", "Field Officer account created successfully");
     }
 
-    @FXML
-    public void CreateCommunicatorAccount(ActionEvent actionEvent) {
-        if (!validateCommonFields()) return;
 
-        if (Input_comOperator_AccessCode.getText().isEmpty() ||
-                input_comOperator_EncyptionProtocol.getValue() == null) {
-            showAlert("Error", "Please fill all communication operator specific fields");
-            return;
-        }
 
-        // Create communicator account logic
-        showAlert("Success", "Communication Operator account created successfully");
+    private boolean saveUser (User user) {
+        ArrayList<User> existingUsers = loadAllUsers();
+        existingUsers.add(user);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(USER_DATA_FILE))) {
+            oos.writeObject(existingUsers);
+            return true;
+        } catch (IOException e) {
+            showAlert("Error", "Failed to save user data: " + e.getMessage());
+            return false;}
     }
 
-    @FXML
-    public void CreateSniperAccount(ActionEvent actionEvent) {
-        if (!validateCommonFields()) return;
-
-        if (input_Sniper_BatchNo.getText().isEmpty() ||
-                Input_Sniper_PrefferedWeapon.getValue() == null) {
-            showAlert("Error", "Please fill all sniper specific fields");
-            return;
+    @SuppressWarnings("unchecked")
+    private ArrayList<User> loadAllUsers() {
+        File file = new File(USER_DATA_FILE);
+        if (!file.exists()) {
+            return new ArrayList<>();
         }
 
-        // Create sniper account logic
-        showAlert("Success", "Sniper account created successfully");
-    }
-
-    @FXML
-    public void createLogisticManagerAccount(ActionEvent actionEvent) {
-        if (!validateCommonFields()) return;
-
-        if (input_Logistic_WarehouseCode.getText().isEmpty() ||
-                input_logistic_WarehouseAddress.getText().isEmpty()) {
-            showAlert("Error", "Please fill all logistic manager specific fields");
-            return;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(USER_DATA_FILE))) {
+            return (ArrayList<User>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            showAlert("Error", "Failed to load user data: " + e.getMessage());
+            return new ArrayList<>();
         }
-
-        // Create logistic manager account logic
-        showAlert("Success", "Logistic Manager account created successfully");
-    }
-
-    @FXML
-    public void CreateMadicAccount(ActionEvent actionEvent) {
-        if (!validateCommonFields()) return;
-
-        if (input_madic_SpecializeField.getText().isEmpty() ||
-                input_Madic_LisenceNo.getText().isEmpty()) {
-            showAlert("Error", "Please fill all medic specific fields");
-            return;
-        }
-
-        // Create medic account logic
-        showAlert("Success", "Medic account created successfully");
-    }
-
-    @FXML
-    public void createDemolitionerAccount(ActionEvent actionEvent) {
-        if (!validateCommonFields()) return;
-
-        // Create demolition account logic
-        showAlert("Success", "Demolition account created successfully");
     }
 
     private void showAlert(String title, String message) {
@@ -281,7 +309,6 @@ public class AddNewUserController {
     }
 
     public void clearForm() {
-        // Clear all common fields
         select_Signup_FullName.clear();
         select_Signup_Email.clear();
         select_Signup_Contact.clear();
@@ -308,5 +335,42 @@ public class AddNewUserController {
         input_logistic_WarehouseAddress.clear();
         input_madic_SpecializeField.clear();
         input_Madic_LisenceNo.clear();
+        mainController.displayAllSavedData();
+    }
+
+    @FXML
+    public void CreateMadicAccount(ActionEvent actionEvent) {
+        createAccount();
+    }
+
+    @FXML
+    public void CreateCommanderAccount(ActionEvent actionEvent) {
+        createAccount();
+    }
+
+    @FXML
+    public void createDemolitionerAccount(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void createLogisticManagerAccount(ActionEvent actionEvent) {
+        createAccount();
+    }
+
+    @FXML
+    public void CreateSniperAccount(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void CreateCommunicatorAccount(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void CreateFieldOfficerAccount(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void CreateAdministratorAccount(ActionEvent actionEvent) {
+        createAccount();
     }
 }

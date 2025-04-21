@@ -2,22 +2,25 @@ package group57.ssf.nonUser;
 
 import group57.ssf.UserClasses.User;
 import group57.ssf.InventoryCollection.InventoryItems;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Team {
+public class Team implements Serializable {
     private String assignedMissionID; // Foreign key to Mission
     private String teamName;
     private String area;
     private String commander;
-    private List<User> teamMembers;
+    private ArrayList<User> teamMembers;
     private String teamDescription;
     private String teamStatus; // e.g., "Active", "On Leave", "Disbanded"
-    private List<InventoryItems> equipmentInventory;
+    private ArrayList<InventoryItems> equipmentInventory;
     private float radioChannels;
     private String creationTimestamp;
 
     public Team(String assignedMissionID, String teamName, String area,
-                String commander, List<User> teamMembers, String teamDescription) {
+                String commander, ArrayList<User> teamMembers, String teamDescription) {
         this.assignedMissionID = assignedMissionID;
         this.teamName = teamName;
         this.area = area;
@@ -42,8 +45,8 @@ public class Team {
     public String getCommander() { return commander; }
     public void setCommander(String commander) { this.commander = commander; }
 
-    public List<User> getTeamMembers() { return teamMembers; }
-    public void setTeamMembers(List<User> teamMembers) { this.teamMembers = teamMembers; }
+    public ArrayList<User> getTeamMembers() { return teamMembers; }
+    public void setTeamMembers(ArrayList<User> teamMembers) { this.teamMembers = teamMembers; }
 
     public String getTeamDescription() { return teamDescription; }
     public void setTeamDescription(String teamDescription) { this.teamDescription = teamDescription; }
@@ -51,8 +54,8 @@ public class Team {
     public String getTeamStatus() { return teamStatus; }
     public void setTeamStatus(String teamStatus) { this.teamStatus = teamStatus; }
 
-    public List<InventoryItems> getEquipmentInventory() { return equipmentInventory; }
-    public void setEquipmentInventory(List<InventoryItems> equipmentInventory) {
+    public ArrayList<InventoryItems> getEquipmentInventory() { return equipmentInventory; }
+    public void setEquipmentInventory(ArrayList<InventoryItems> equipmentInventory) {
         this.equipmentInventory = equipmentInventory;
     }
 

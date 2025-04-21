@@ -1,24 +1,30 @@
 package group57.ssf.InventoryCollection;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
-public class Inventory {
-    private List<InventoryItems> items;
+public class Inventory implements Serializable {
+    private ArrayList<InventoryItems> items;
 
     public Inventory() {
        this.items = new ArrayList<InventoryItems>();
     }
 
     // Add item to inventory
-    public boolean addItem(InventoryItems item) {
-
-        return false;
+    public void addItem(InventoryItems item) {
+        items.add(item);
     }
 
+    public ArrayList<InventoryItems> getItems() {
+        return items;
+    }
 
-    public List<InventoryItems> getItemsByCategory(String category) {
+    public void setItems(ArrayList<InventoryItems> items) {
+        this.items = items;
+    }
+
+    public ArrayList<InventoryItems> getItemsByCategory(String category) {
         // Validate input
         if (category == null || category.trim().isEmpty()) {
             throw new IllegalArgumentException("Category cannot be null or empty");
@@ -36,29 +42,29 @@ public class Inventory {
     }
 
     // Specific category getters
-    public List<InventoryItems> getAllFuel() {
+    public ArrayList<InventoryItems> getAllFuel() {
         return getItemsByCategory("Fuel");
     }
 
-    public List<InventoryItems> getAllVehicles() {
+    public ArrayList<InventoryItems> getAllVehicles() {
         return getItemsByCategory("Vehicle");
     }
 
-    public List<InventoryItems> getAllMediKits() {
+    public ArrayList<InventoryItems> getAllMediKits() {
         return getItemsByCategory("Medical Kit");
     }
 
-    public List<InventoryItems> getAllWeapons() {
+    public ArrayList<InventoryItems> getAllWeapons() {
         return getItemsByCategory("Weapon");
     }
 
-    public List<InventoryItems> getAllAmmo() {
+    public ArrayList<InventoryItems> getAllAmmo() {
         return getItemsByCategory("Ammo");
     }
 
     // Display all items of a category
     public void displayAllItems(String category) {
-        List<InventoryItems> categoryItems = getItemsByCategory(category);
+        ArrayList<InventoryItems> categoryItems = getItemsByCategory(category);
         if (categoryItems.isEmpty()) {
             System.out.println("No " + category + " items found.");
         } else {

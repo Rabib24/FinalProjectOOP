@@ -1,6 +1,8 @@
 package group57.ssf.UserClasses;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     // Fields as specified in the image
     private int id;          // unique identifier
     private String password;
@@ -12,6 +14,7 @@ public class User {
     private String role;
     private String status;
     private float salary;
+    private static final long serialVersionUID = 1L;
 
     public User(int id) {
         this.id = id;

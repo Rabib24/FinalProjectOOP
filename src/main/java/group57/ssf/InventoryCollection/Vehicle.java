@@ -2,7 +2,9 @@ package group57.ssf.InventoryCollection;
 
 import group57.ssf.UserClasses.User;
 
-public class Vehicle extends InventoryItems {
+import java.io.Serializable;
+
+public class Vehicle extends InventoryItems implements Serializable {
     private String vehicleType;
     private int licenseNo;
     private String assignStatus;

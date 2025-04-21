@@ -1,6 +1,8 @@
 package group57.ssf.nonUser;
 
-public class CommunicationChannels {
+import java.io.Serializable;
+
+public class CommunicationChannels implements Serializable {
     private float frequencyID; // Unique identifier
     private String encryptionProtocol;
     private String managedBy; // e.g., "Admin", "Team Leader"

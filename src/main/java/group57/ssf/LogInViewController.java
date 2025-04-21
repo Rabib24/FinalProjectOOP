@@ -1,11 +1,22 @@
 package group57.ssf;
 
+import group57.ssf.Rabib_2221005.AdministratorDashboardViewController;
+import group57.ssf.Rabib_2221005.LogisticManagerDashboardViewController;
+import group57.ssf.UserClasses.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LogInViewController {
     @FXML private TextField LoginUsername;
@@ -14,6 +25,11 @@ public class LogInViewController {
     @FXML private PasswordField LoginPassword;
 
     private MainController mainController;
+
+    public void initialize(){
+    }
+
+
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -24,56 +40,90 @@ public class LogInViewController {
         String username = LoginUsername.getText().trim();
         String password = LoginPassword.getText().trim();
 
-        // Validate input
         if (username.isEmpty() || password.isEmpty()) {
             showError("Username and password are required");
             return;
         }
 
-        // Check against admin access codes (example validation)
-        if (isValidAdmin(username, password)) {
-            showSuccess("Admin login successful");
-            // TODO: Proceed to admin dashboard
-        }
-        else if (isValidUser(username, password)) {
-            showSuccess("Login successful");
-            // TODO: Proceed to user dashboard
-        }
-        else {
-            showError("Invalid credentials");
+        User authenticatedUser = mainController.validateLogin(username, password);
+        if (authenticatedUser != null) {
+            showSuccess("Login successful!");
+            redirectToDashboard(authenticatedUser);
+        } else {
+            showError("Invalid username or password");
         }
     }
 
-    private boolean isValidAdmin(String username, String password) {
-        // Check against admin access codes from main controller
-        return mainController.getAdminAccessCode().contains(password) &&
-                username.equalsIgnoreCase("admin");
+    private void redirectToDashboard(User user) {
+        try {
+            String role = user.getRole().toLowerCase();
+            String fxmlPath = "";
+
+            // Map roles to FXML paths (update paths as per your project)
+            switch (role) {
+                case "administrator":
+                    fxmlPath = "/group57/ssf/Rabib/AdminUser/AdministratorDashboardView.fxml";
+                    break;
+                case "logistic manager":
+                    fxmlPath = "/group57/ssf/Rabib/LogisticUser/LogisticManagerDashboardView.fxml";
+                    break;
+                case "medic":
+                    fxmlPath = "/group57/ssf/Kobita_W/MedicDashboardView.fxml";
+                    break;
+                case "commander":
+                    fxmlPath = "/group57/ssf/Safin/CommanderDashboardView.fxml";
+                    break;
+                case "demolition":
+                    fxmlPath = "/group57/ssf/Kobita_W/DemolitionDashboardView.fxml";
+                    break;
+                case "sniper":
+                    fxmlPath = "/group57/ssf/Saida/SniperDashboardView.fxml";
+                    break;
+                case "communication officer":
+                    fxmlPath = "/group57/ssf/Saida/CommunicationOfficerDashboardView.fxml";
+                    break;
+                case "field officer":
+                    fxmlPath = "/group57/ssf/Safin/FieldOfficerDashboardView.fxml";
+                    break;
+                default:
+                    showError("No dashboard found for role: " + role);
+                    return;
+            }
+            System.out.println("user dashboard: LoginView: --> " + fxmlPath);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Get the controller for the loaded FXML
+            if (role.equals("administrator")) {
+                AdministratorDashboardViewController adminController = loader.getController();
+                adminController.setMainController(mainController, user); // Pass the user info
+            } else if (role.equals("logistic manager")) {
+                // Assuming you have a similar controller for Logistic Manager
+                LogisticManagerDashboardViewController logisticController = loader.getController();
+                logisticController.setMainController(mainController, user); // Pass the user info
+            }
+            // Add similar blocks for other roles if needed
+
+            Stage stage = (Stage) LoginUsername.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle(user.getRole() + " Dashboard");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Failed to load dashboard");
+        }
     }
 
-    private boolean isValidUser(String username, String password) {
-        // Add your user validation logic here
-        // This is just a placeholder implementation
-        return password.length() >= 8 &&
-                username.matches("^[a-zA-Z0-9_]{4,20}$");
-    }
 
     private void showError(String message) {
-        LoginReportText.setStyle("-fx-text-fill: #ff4444;"); // Red color for errors
+        LoginReportText.setStyle("-fx-text-fill: #ff4444;");
         LoginReportText.setText(message);
     }
 
     private void showSuccess(String message) {
-        LoginReportText.setStyle("-fx-text-fill: #00C851;"); // Green color for success
+        LoginReportText.setStyle("-fx-text-fill: #00C851;");
         LoginReportText.setText(message);
     }
 
-    // Helper method to clear the form
-    public void clearForm() {
-        LoginUsername.clear();
-        LoginPassword.clear();
-        LoginReportText.setText("");
-    }
-
-    public void handleLogin() {
-    }
 }

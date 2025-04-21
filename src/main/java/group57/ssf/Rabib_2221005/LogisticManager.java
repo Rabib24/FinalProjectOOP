@@ -2,7 +2,9 @@ package group57.ssf.Rabib_2221005;
 
 import group57.ssf.UserClasses.User;
 
-public class LogisticManager extends User {
+import java.io.Serializable;
+
+public class LogisticManager extends User implements Serializable {
     // Additional fields from UML
     private String wareHouseAccessCode;
     private String phoneNumber;

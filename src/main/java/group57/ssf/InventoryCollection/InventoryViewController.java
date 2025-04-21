@@ -1,5 +1,7 @@
 package group57.ssf.InventoryCollection;
 
+import group57.ssf.MainController;
+import group57.ssf.UserClasses.User;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,7 +30,13 @@ public class InventoryViewController
 //    private TableView ViewInventoryPane_MainTable;
 //    @javafx.fxml.FXML
 //    private TableColumn<> MainTable_AssignedTeamID;
+    private MainController mainController;
+    private User loggedInUser;
 
+    public void setMainController(MainController mainController, User user) {
+        this.mainController = mainController;
+        this.loggedInUser  = user;
+    }
     @javafx.fxml.FXML
     public void initialize() {
     }

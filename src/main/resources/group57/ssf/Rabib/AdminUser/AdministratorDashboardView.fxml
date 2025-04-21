@@ -17,7 +17,7 @@
    <children>
       <BorderPane fx:id="AdminDashboardBorderpan" prefHeight="601.0" prefWidth="800.0" style="-fx-background-color: #e8e3e2;">
          <center>
-            <Pane fx:id="CenterAdminDashboardPane" prefHeight="454.0" prefWidth="800.0" style="-fx-background-color: #F0F1C5; -fx-padding: 2px;" BorderPane.alignment="CENTER" />
+            <Pane fx:id="CenterAdminDashboardBorderPane" prefHeight="454.0" prefWidth="800.0" style="-fx-background-color: #F0F1C5; -fx-padding: 2px;" BorderPane.alignment="CENTER" />
          </center>
          <bottom>
             <Pane prefHeight="48.0" prefWidth="800.0" BorderPane.alignment="CENTER">
@@ -91,6 +91,7 @@
                     <MenuItem mnemonicParsing="false" text="About" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" onAction="#goToHome" text="Home" />
               </menus>
                <opaqueInsets>
                   <Insets top="10.0" />

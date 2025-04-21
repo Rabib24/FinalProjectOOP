@@ -1,8 +1,9 @@
 package group57.ssf.InventoryCollection;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ammos extends InventoryItems {
+public class Ammos extends InventoryItems implements Serializable {
     private float size;
     private ArrayList<String> supportedWeapons; // List of weapon types this ammo fits
 

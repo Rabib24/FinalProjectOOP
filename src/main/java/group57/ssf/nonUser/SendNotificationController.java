@@ -1,5 +1,6 @@
 package group57.ssf.nonUser;
 
+import group57.ssf.MainController;
 import group57.ssf.UserClasses.User;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
@@ -22,6 +23,8 @@ public class SendNotificationController
     @javafx.fxml.FXML
     private TextArea SendNotification_Message;
 
+    private User CreatedBy;
+
     @javafx.fxml.FXML
     public void initialize() {
     }
@@ -32,5 +35,11 @@ public class SendNotificationController
 
     @javafx.fxml.FXML
     public void SendNotification_AddUserToDestinationList(ActionEvent actionEvent) {
+    }
+
+    private MainController mainController;
+    public void setMainController(MainController mainController, User user) {
+        this.mainController = mainController;
+        this.CreatedBy  = user;
     }
 }

@@ -1,9 +1,10 @@
 package group57.ssf.nonUser;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ResupplyRequest {
+public class ResupplyRequest implements Serializable {
     private int supplyId; // Unique identifier
     private int requestTeamId;
     private int currentLocation;

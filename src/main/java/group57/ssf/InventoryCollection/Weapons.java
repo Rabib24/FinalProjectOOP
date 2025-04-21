@@ -1,6 +1,8 @@
 package group57.ssf.InventoryCollection;
 
-public class Weapons extends InventoryItems {
+import java.io.Serializable;
+
+public class Weapons extends InventoryItems implements Serializable {
     private String weaponType;
     private String status; // Operational/Damaged
     private String ammoType; // e.g., "9mm", "5.56mm"

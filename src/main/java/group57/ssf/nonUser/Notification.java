@@ -1,9 +1,11 @@
 package group57.ssf.nonUser;
 
 import group57.ssf.UserClasses.User;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Notification {
+public class Notification implements Serializable {
     private String notificationType;
     private String title;
     private String description;
